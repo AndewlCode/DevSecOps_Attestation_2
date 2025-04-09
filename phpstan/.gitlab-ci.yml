@@ -1,0 +1,15 @@
+stages:
+- phpstan
+cache:
+  key: $CI_COMMIT_REF_SLUG
+  paths:
+  - .tmp/
+  - vendor/
+  phpstan:
+    stage: phpstan
+    script: 
+    - analyse --no-progress --error-format gitlab > phpstan.json
+    artifacts:
+    when: always
+    reports:
+    codequality: phpstan.json
